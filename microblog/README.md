@@ -21,3 +21,15 @@ u = User(username='teemu', email='teemu@lehti.la')
 u.set_password('salasana')
 db.session.add(u)
 db.session.commit()
+
+Reset password:
+flask shell
+from app.models import User
+from app import db
+#Get user id:
+users = User.query.all()
+users
+[<ID: 1> <User teemu>]
+u = User.query.get(ID)
+u.set_password('salasana')
+db.session.commit()

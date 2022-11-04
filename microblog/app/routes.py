@@ -1,4 +1,5 @@
-from crypt import methods
+#from crypt import methods
+import hashlib
 from turtle import title
 from app import app, db
 from urllib import request

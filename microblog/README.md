@@ -24,7 +24,7 @@ Adding new users:
 flask shell
 from app.models import User
 from app import db
-u = User(username='teemu', email='teemu@lehti.la')
+u = User(username='user', email='user@email.com')
 u.set_password('salasana')
 db.session.add(u)
 db.session.commit()
@@ -38,7 +38,7 @@ from app import db
 #Get user id:
 users = User.query.all()
 users
-[<ID: 1> <User teemu>]
+[<ID: 1> <User user>]
 u = User.query.get(ID)
 u.set_password('salasana')
 db.session.commit()

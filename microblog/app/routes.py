@@ -31,6 +31,12 @@ def index():
     ]
     return render_template('index.html', title="Pullo", posts=posts)
 
+@app.route('/users')
+@login_required
+def users():
+    users = User.query.all()
+    return render_template('users.html', title="Users", users=users)
+
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if current_user.is_authenticated:

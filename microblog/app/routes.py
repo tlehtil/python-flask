@@ -27,14 +27,22 @@ def index():
         db.session.commit()
         flash('Your post is saved')
         return redirect(url_for('index'))
-    posts = current_user.followed_posts().all()
-    return render_template('index.html', title="Pullo",form=form, posts=posts)
+    page = request.args.get('page', 1, type=int)
+    posts = current_user.followed_posts().paginate(
+        page=page, per_page=app.config['POSTS_PER_PAGE'], error_out=False)
+    next_url = url_for('index', page=posts.next_num) if posts.has_next else None
+    prev_url = url_for('index', page=posts.prev_num) if posts.has_prev else None
+    return render_template('index.html', title="Pullo",form=form, 
+                           posts=posts.items, next_url=next_url, 
+                           prev_url=prev_url)
 
 @app.route('/users')
 @login_required
 def users():
-    users = User.query.all()
-    return render_template('users.html', title="Users", users=users)
+    page = request.args.get('page', 1, type=int)
+    users = User.query.paginate(
+        page=page, per_page=app.config['POSTS_PER_PAGE'], error_out=False)
+    return render_template('users.html', title="Users", users=users.items)
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():

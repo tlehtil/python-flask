@@ -16,7 +16,7 @@ migrate = Migrate(app, db)
 login = LoginManager(app)
 login.login_view = 'login'
 bootstrap = Bootstrap(app)
-moment = moment(app)
+moment = Moment(app)
 
 from app import routes, models, errors
 

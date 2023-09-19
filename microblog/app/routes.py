@@ -43,7 +43,7 @@ def users():
     page = request.args.get('page', 1, type=int)
     users = User.query.paginate(
         page=page, per_page=app.config['POSTS_PER_PAGE'], error_out=False)
-    return render_template('users.html', title=_("Users"), users=users.items)
+    return render_template('users.html', title=_('Users'), users=users.items)
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -92,7 +92,7 @@ def edit_profile():
     elif request.method == 'GET':
         form.username.data = current_user.username
         form.about_me.data = current_user.about_me
-    return render_template('edit_profile.html', title=(_('Edit Profile'), form=form)
+    return render_template('edit_profile.html', title=_('Edit Profile'), form=form)
 
 @app.route('/follow/<username>', methods=['POST'])
 @login_required

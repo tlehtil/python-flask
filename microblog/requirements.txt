@@ -8,3 +8,4 @@ email-validator
 flask-bootstrap
 flask-moment
 flask-babel<3
+langdetect

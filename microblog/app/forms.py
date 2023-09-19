@@ -3,17 +3,18 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, BooleanField, SubmitField, TextAreaField
 from wtforms.validators import DataRequired, Length, ValidationError, EqualTo
 from app.models import User
+from flask_babel import lazy_gettext as _l
 
 class LoginForm(FlaskForm):
-    username = StringField('Username', validators=[DataRequired()])
-    password = PasswordField('Password', validators=[DataRequired()])
-    remember_me = BooleanField('Remember Me')
-    submit = SubmitField('Sign In')
+    username = StringField(_l('Username'), validators=[DataRequired()])
+    password = PasswordField(_l('Password'), validators=[DataRequired()])
+    remember_me = BooleanField(_l('Remember Me'))
+    submit = SubmitField(_l('Sign In'))
 
 class EditProfileForm(FlaskForm):
-    username = StringField('Username', validators=[DataRequired()])
-    about_me = TextAreaField('About me', validators=[Length(min=0, max=140)])
-    submit = SubmitField('Submit')
+    username = StringField(_l('Username'), validators=[DataRequired()])
+    about_me = TextAreaField(_l('About me'), validators=[Length(min=0, max=140)])
+    submit = SubmitField(_l('Submit'))
 
     def __init__(self, original_username, *args, **kwargs):
         super(EditProfileForm, self).__init__(*args, **kwargs)
@@ -26,8 +27,8 @@ class EditProfileForm(FlaskForm):
                 raise ValidationError('Please use a different username.')
 
 class EmptyForm(FlaskForm):
-    submit = SubmitField('Submit')
+    submit = SubmitField(_l('Submit'))
 
 class PostForm(FlaskForm):
-    post = TextAreaField('Create a post', validators=[DataRequired(), Length(min=1, max=140)])
-    submit = SubmitField('Submit')
+    post = TextAreaField(_l('Create a post'), validators=[DataRequired(), Length(min=1, max=140)])
+    submit = SubmitField(_l('Submit'))

@@ -9,6 +9,7 @@ from app.models import User, Post
 from flask_login import current_user, login_user, logout_user, login_required
 from werkzeug.urls import url_parse
 from datetime import datetime
+from flask_babel import _
 
 @app.before_request
 def before_request():
@@ -25,7 +26,7 @@ def index():
         post = Post(body=form.post.data, author=current_user)
         db.session.add(post)
         db.session.commit()
-        flash('Your post is saved')
+        flash(_('Your post is saved'))
         return redirect(url_for('index'))
     page = request.args.get('page', 1, type=int)
     posts = current_user.followed_posts().paginate(
@@ -42,7 +43,7 @@ def users():
     page = request.args.get('page', 1, type=int)
     users = User.query.paginate(
         page=page, per_page=app.config['POSTS_PER_PAGE'], error_out=False)
-    return render_template('users.html', title="Users", users=users.items)
+    return render_template('users.html', title=_("Users"), users=users.items)
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -52,14 +53,14 @@ def login():
     if form.validate_on_submit():
         user = User.query.filter_by(username=form.username.data).first()
         if user is None or not user.check_password(form.password.data):
-            flash('Invalid username or password!')
+            flash(_('Invalid username or password!'))
             return redirect(url_for('login'))
         login_user(user, remember=form.remember_me.data)
         next_page = request.args.get('next')
         if not next_page or url_parse(next_page).netloc != '':
             next_page = url_for('index')
         return redirect(next_page)
-    return render_template('login.html', title='Sign In', form=form)
+    return render_template('login.html', title=_('Sign In'), form=form)
 
 @app.route('/logout')
 def logout():
@@ -86,12 +87,12 @@ def edit_profile():
         current_user.username = form.username.data
         current_user.about_me = form.about_me.data
         db.session.commit()
-        flash('Your changes have been saved.')
+        flash(_('Your changes have been saved.'))
         return redirect(url_for('edit_profile'))
     elif request.method == 'GET':
         form.username.data = current_user.username
         form.about_me.data = current_user.about_me
-    return render_template('edit_profile.html', title='Edit Profile', form=form)
+    return render_template('edit_profile.html', title=(_('Edit Profile'), form=form)
 
 @app.route('/follow/<username>', methods=['POST'])
 @login_required
@@ -100,14 +101,14 @@ def follow(username):
     if form.validate_on_submit():
         user = User.query.filter_by(username=username).first()
         if user is None:
-            flash('User {} not found.'.format(username))
+            flash(_('User %{username} not found.', username=username))
             return redirect(url_for('index'))
         if user == current_user:
-            flash('Why would you follow yourself?')
+            flash(_('Why would you follow yourself?'))
             return redirect(url_for('user', username=username))
         current_user.follow(user)
         db.session.commit()
-        flash('You are following {}'.format(username))
+        flash(_('You are following %{username}', username=username))
         return redirect(url_for('user', username=username))
     else:
         return redirect(url_for('index'))
@@ -119,14 +120,14 @@ def unfollow(username):
     if form.validate_on_submit():
         user = User.query.filter_by(username=username).first()
         if user is None:
-            flash('User {} not found.'.format(username))
+            flash(_('User %{username} not found.', username=username))
             return redirect(url_for('index'))
         if user == current_user:
-            flash('Why would you unfollow yourself?')
+            flash(_('Why would you unfollow yourself?'))
             return redirect(url_for('user', username=username))
         current_user.unfollow(user)
         db.session.commit()
-        flash('You are no longer following {}'.format(username))
+        flash(_('You are no longer following %{username}', username=username))
         return redirect(url_for('user', username=username))
     else:
         return redirect(url_for('index'))

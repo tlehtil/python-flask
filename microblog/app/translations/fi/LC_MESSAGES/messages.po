@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2023-09-19 16:13+0300\n"
+"POT-Creation-Date: 2023-09-20 16:19+0300\n"
 "PO-Revision-Date: 2023-09-19 16:18+0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: fi\n"
@@ -34,7 +34,7 @@ msgstr "Salasana"
 msgid "Remember Me"
 msgstr "Muista minut"
 
-#: app/forms.py:12 app/routes.py:63 app/templates/login.html:5
+#: app/forms.py:12 app/routes.py:70 app/templates/login.html:5
 msgid "Sign In"
 msgstr "Kirjaudu sisään"
 
@@ -50,46 +50,54 @@ msgstr "OK"
 msgid "Create a post"
 msgstr "Luo postaus"
 
-#: app/routes.py:29
+#: app/routes.py:36
 msgid "Your post is saved"
 msgstr "Postaus tallennettu"
 
-#: app/routes.py:46 app/templates/base.html:21
+#: app/routes.py:53 app/templates/base.html:21
 msgid "Users"
 msgstr "Käyttäjät"
 
-#: app/routes.py:56
+#: app/routes.py:63
 msgid "Invalid username or password!"
 msgstr "Väärä käyttäjätunnus tai salasana"
 
-#: app/routes.py:90
+#: app/routes.py:97
 msgid "Your changes have been saved."
 msgstr "Muutokset tallennettu"
 
-#: app/routes.py:95 app/templates/edit_profile.html:5
+#: app/routes.py:102 app/templates/edit_profile.html:5
 #: app/templates/user.html:15
 msgid "Edit Profile"
 msgstr "Muokkaa profiilia"
 
-#: app/routes.py:104 app/routes.py:123
+#: app/routes.py:111 app/routes.py:130
 msgid "User %{username} not found."
 msgstr "Käyttäjää %{username} ei löydy"
 
-#: app/routes.py:107
+#: app/routes.py:114
 msgid "Why would you follow yourself?"
 msgstr "Et voi seurata itseäsi"
 
-#: app/routes.py:111
+#: app/routes.py:118
 msgid "You are following %{username}"
 msgstr "Seuraat käyttäjää %{username}"
 
-#: app/routes.py:126
+#: app/routes.py:133
 msgid "Why would you unfollow yourself?"
 msgstr "Et voi lopettaa itsesi seuraamista"
 
-#: app/routes.py:130
+#: app/routes.py:137
 msgid "You are no longer following %{username}"
 msgstr "Et seuraa enää käyttäjää %{username}"
+
+#: app/translate.py:8
+msgid "Error: the translation service not configured."
+msgstr "Virhe: käännöspalvelua ei ole asetettu."
+
+#: app/translate.py:15
+msgid "Error: the translation service failed."
+msgstr "Virhe: käännös ei onnistunut."
 
 #: app/templates/404.html:4
 msgid "Page not found"
@@ -105,11 +113,15 @@ msgstr "Odottamaton virhe tapahtui"
 
 #: app/templates/500.html:5
 msgid "The administrator has been notified. Sorry for the inconvenience!"
-msgstr "Sysopille ilmoitettu. Pahoittelut virheestä "
+msgstr "Sysopille ilmoitettu. Pahoittelut virheestä!"
 
 #: app/templates/_post.html:12
 msgid "posts"
 msgstr "kirjoitti"
+
+#: app/templates/_post.html:25
+msgid "Translate"
+msgstr "Käännä"
 
 #: app/templates/base.html:4
 msgid "Welcome to Microblob"
@@ -130,6 +142,10 @@ msgstr "Profiili"
 #: app/templates/base.html:28
 msgid "Logout"
 msgstr "Kirjaudu ulos"
+
+#: app/templates/base.html:65
+msgid "Error: Could not contact server."
+msgstr "Virhe: Palvelimeen ei saatu yhteyttä."
 
 #: app/templates/index.html:5
 msgid "Hello"

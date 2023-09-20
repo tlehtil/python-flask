@@ -3,16 +3,15 @@ import hashlib
 from turtle import title
 from app import app, db
 from urllib import request
-from flask import render_template, flash, redirect, url_for, request
+from flask import render_template, flash, redirect, url_for, request, g, jsonify
 from app.forms import LoginForm, EditProfileForm, EmptyForm, PostForm
 from app.models import User, Post
 from flask_login import current_user, login_user, logout_user, login_required
 from werkzeug.urls import url_parse
 from datetime import datetime
-from flask_babel import _
-from flask import g
-from flask_babel import get_locale
+from flask_babel import _, get_locale
 from langdetect import detect, LangDetectException
+from app.translate import translate
 
 @app.before_request
 def before_request():
@@ -139,3 +138,10 @@ def unfollow(username):
         return redirect(url_for('user', username=username))
     else:
         return redirect(url_for('index'))
+
+@app.route('/translate', methods=['POST'])
+@login_required
+def translate_text():
+    return jsonify({'text': translate(request.form['text'],
+    request.form['source_language'], 
+    request.form['dest_language'])})

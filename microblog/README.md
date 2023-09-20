@@ -43,3 +43,6 @@ u = User.query.get(ID)
 u.set_password('salasana')
 db.session.commit()
 ```
+
+Set api-key for ms translate-service:
+```export MS_TRANSLATOR_KEY=YOURKEYHERE```

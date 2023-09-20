@@ -1,3 +1,5 @@
+.DS_Cache
 app.db
 logs
 __pycache__
+messages.pot

@@ -1,4 +1,4 @@
-.DS_Cache
+.DS_Store
 app.db
 logs
 __pycache__
